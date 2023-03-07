@@ -73,6 +73,12 @@ Domain MUST have `create`, `update` and `delete` methods.
 
 `Delete` method must receive an object and deletes it.
 
-Don't throw exceptions in domain, if any fields missing. Just set a field to model if it exists.
+Don't throw exceptions in domain, if any fields missing. Just set a field to model if it exists. When setting fields to model cast them to appropriate type based on field purpose. Example:
 
-When setting fields to model cast them to appropriate type based on field purpose.
+```php
+if (array_key_exists('name', $data)) {
+  $model->setName((string) $data['name']);
+}
+```
+
+
