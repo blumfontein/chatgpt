@@ -66,7 +66,9 @@ $this->setErrorMessageAndExit('Object is not found');
 
 ### ORM
 
-Use always Propel 2 ORM. Write table xml schema. Always create `id` field.
+Use always Propel 2 ORM. Always write xml schema for table, when I say `create a model`. 
+
+Always create `id` field.
 
 For `varchar` fields use `varchar` without length.
 
@@ -75,6 +77,8 @@ For `varchar` fields use `varchar` without length.
 Domain is a class which contains saving models to database.
 
 Always call domain when saving something to database.
+
+Don't inject repository class to domain.
 
 Inject domain to controller like this: $this->s('domain'). If model is Human, then domain processing Human objects is called HumanDomain, and injected as 'domain.human' service.
 
@@ -93,6 +97,9 @@ if (array_key_exists('name', $data)) {
   $model->setName((string) $data['name']);
 }
 ```
+
+Don't add `is_disabled` field setting neither to `create` nor to `update` methods.
+Add separate methods `disable`, `enable`.
 
 ### Repository
 
