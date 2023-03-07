@@ -33,7 +33,25 @@ public function action()
 }
 ```
 
-Always call actions like this: for creating - `post`, for updating - `patch`, for deleteing - `delete`.
+Always call actions like this: for creating - `post`, for updating - `patch`, for deleteing - `delete`. Dont add `Action` suffix to action, just write `post()`, `patch()`, `delete()`.
+
+#### Update action
+
+After fetching the object from the database always check if it is not null. If it is null, return content like this:
+
+```php
+// Replace the word "object" to the name of the model
+$this->setErrorMessageAndExit('Object is not found');
+```
+
+#### Delete action
+
+After fetching the object from the database always check if it is not null. If it is null, return content like this:
+
+```php
+// Replace the word "object" to the name of the model
+$this->setErrorMessageAndExit('Object is not found');
+```
 
 ### ORM
 
@@ -54,3 +72,7 @@ Domain MUST have `create`, `update` and `delete` methods.
 `Update` method must receive an object to update, and an array of data and save fields to model one-by-one, with checking that certain field exists in the data array.
 
 `Delete` method must receive an object and deletes it.
+
+Don't throw exceptions in domain, if any fields missing. Just set a field to model if it exists.
+
+When setting fields to model cast them to appropriate type based on field purpose.
