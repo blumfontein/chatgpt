@@ -33,7 +33,18 @@ public function action()
 }
 ```
 
-Always call actions like this: for creating - `post`, for updating - `patch`, for deleteing - `delete`. Dont add `Action` suffix to action, just write `post()`, `patch()`, `delete()`.
+Always call actions like this: for getting one model - `get`, for creating - `post`, for updating - `patch`, for deleteing - `delete`. Dont add `Action` suffix to action, just write `get()`, `post()`, `patch()`, `delete()`.
+
+#### Get action
+
+`Get` action returns formatted fields of one model.
+
+After fetching the object from the database always check if it is not null. If it is null, return content like this:
+
+```php
+// Replace the word "object" to the name of the model
+$this->setErrorMessageAndExit('Object is not found');
+```
 
 #### Update action
 
@@ -55,7 +66,9 @@ $this->setErrorMessageAndExit('Object is not found');
 
 ### ORM
 
-Use always Propel 2 ORM.
+Use always Propel 2 ORM. Write table xml schema. Always create `id` field.
+
+For `varchar` fields use `varchar` without length.
 
 ### Domain
 
@@ -81,4 +94,12 @@ if (array_key_exists('name', $data)) {
 }
 ```
 
+### Repository
 
+Repository is a class to have methods about selecting models from database and formatting them.
+
+Always create the method `findPk()`, which gets the object by `id`.
+
+Inject repository to controller like this: `$this->s('repository.model')`.
+
+Always create methods `format` and `formatCollection`, which return array of formatted fields. Don't call `->toArray()` method of model. Format all fields one-by-one.
